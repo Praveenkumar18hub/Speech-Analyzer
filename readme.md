@@ -13,6 +13,6 @@ It is a mobile application designed for transcribing voice recordings into text 
 ## Tech Stack Used
 - **Frontend**: React Native, Expo, Nativewind
 - **Backend**: Firebase (Firestore, Storage, Authentication)
-- **API**: Google - Cloud Speech-to-Text API, Cloud Translation API
+- **API**: Google - (Cloud Speech-to-Text API, Cloud Translation API)
 
 
