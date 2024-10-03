@@ -1,7 +1,7 @@
 {
   "name": "voice",
   "version": "1.0.0",
-  "main": "expo/AppEntry.js",
+  "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -9,13 +9,51 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "~51.0.28",
+    "@expo/metro-runtime": "~3.2.3",
+    "@expo/vector-icons": "^14.0.4",
+    "@google-cloud/speech": "^6.7.0",
+    "@google-cloud/storage": "^7.13.0",
+    "@google-cloud/translate": "^8.5.0",
+    "@react-native-async-storage/async-storage": "^1.23.1",
+    "@react-native-firebase/app": "^21.0.0",
+    "@react-native-firebase/auth": "^21.0.0",
+    "@react-native-firebase/firestore": "^21.0.0",
+    "@react-native-firebase/storage": "^21.0.0",
+    "@react-navigation/native": "^6.1.18",
+    "@shopify/flash-list": "^1.6.4",
+    "autoprefixer": "^10.4.20",
+    "axios": "^1.7.7",
+    "expo": "~51.0.35",
+    "expo-av": "~14.0.7",
+    "expo-file-system": "~17.0.1",
+    "expo-font": "^12.0.10",
+    "expo-router": "~3.5.23",
+    "expo-speech": "~12.0.2",
     "expo-status-bar": "~1.12.1",
+    "firebase": "^10.13.2",
+    "google-translate-api": "^2.3.0",
+    "he": "^1.2.0",
+    "install": "^0.13.0",
+    "microphone-stream": "^6.0.1",
+    "nativewind": "^2.0.11",
+    "node-record-lpcm16": "^1.0.1",
+    "npm": "^10.8.3",
+    "postcss": "^8.4.47",
     "react": "18.2.0",
-    "react-native": "0.74.5"
+    "react-dom": "18.2.0",
+    "react-native": "0.74.5",
+    "react-native-audio-record": "^0.2.2",
+    "react-native-chart-kit": "^6.12.0",
+    "react-native-dotenv": "^3.4.11",
+    "react-native-linear-gradient": "^2.8.3",
+    "react-native-paper": "^5.12.5",
+    "react-native-permissions": "^4.1.5",
+    "react-native-svg": "^15.7.1",
+    "expo-updates": "~0.25.26"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "tailwindcss": "^3.3.2"
   },
   "private": true
 }
