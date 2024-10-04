@@ -1,4 +1,4 @@
-import { View, Text, Image, ActivityIndicator } from 'react-native';
+import { View, Text, Image, ActivityIndicator, ScrollView } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
@@ -37,6 +37,7 @@ export default function App() {
 
     return (
         <SafeAreaView className="bg-prime flex-1">
+          <ScrollView>
           <View className="mt-12 ml-3 mr-3">
 
             <View className="justify-start items-center flex-row ml-3">
@@ -117,8 +118,10 @@ export default function App() {
                 containerStyles="mt-7 w-[150px]"
               />
             </View>
-                
-          </View>
+
+            </View>
+
+          </ScrollView>
           <StatusBar backgroundColor="#212121" style="light"/>
         </SafeAreaView>
     );

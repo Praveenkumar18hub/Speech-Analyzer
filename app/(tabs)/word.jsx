@@ -52,7 +52,7 @@ const Word = () => {
     querySnapshot.docs.forEach((doc) => {
       wordCounts[doc.id] = doc.data().totalCount || 0;
     });
-    console.log('Global word counts:', wordCounts);
+    // console.log('Global word counts:', wordCounts);
     return wordCounts;
   };
 
