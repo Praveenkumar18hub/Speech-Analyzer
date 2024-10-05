@@ -3,7 +3,7 @@ import * as FileSystem from 'expo-file-system';
 import { GOOGLE_CLOUD_API_KEY } from '@env';
 
 // Function to transcribe audio using Google Cloud Speech-to-Text API
-export const transcribeAudio = async (audioUri, language = 'ta-IN') => {
+export const transcribeAudio = async (audioUri, language = 'en') => {
   try {
     const audioFile = await FileSystem.readAsStringAsync(audioUri, {
       encoding: FileSystem.EncodingType.Base64,
@@ -16,7 +16,7 @@ export const transcribeAudio = async (audioUri, language = 'ta-IN') => {
           encoding: 'AMR_WB', 
           sampleRateHertz: 16000, 
           languageCode: language, 
-          alternativeLanguageCodes: ['hi-IN', 'ta-IN', 'te-IN'], // Add more languages if needed
+          alternativeLanguageCodes: ['hi-IN', 'ta-IN', 'fr', 'es'],
         },
         audio: {
           content: audioFile,
@@ -57,15 +57,18 @@ export const translateText = async (text, targetLanguage = 'en') => {
       `https://translation.googleapis.com/language/translate/v2?key=${GOOGLE_CLOUD_API_KEY}`,
       {
         q: text,
-        target: targetLanguage,
+        target: targetLanguage
+        // source: 'ta'
       }
     );
 
     if (response.data && response.data.data.translations) {
-      return response.data.data.translations[0].translatedText;
+      const translatedText = response.data.data.translations[0].translatedText;
+      console.log('Translated text:', translatedText); // Log the translated text
+      return translatedText;
     }
-
-    return text; // Return the original text if no translation is available
+    console.log('No translation found, returning original text');
+    return text; 
   } catch (error) {
     console.error('Error translating text:', error);
     throw new Error('Failed to translate text.');

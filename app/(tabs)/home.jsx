@@ -19,7 +19,8 @@ const Home = () => {
   const [loading, setLoading] = useState(false); 
   const [topPhrases, setTopPhrases] = useState([]); 
   const [wordsLoading, setWordsLoading] = useState(true); 
-  const [phrasesLoading, setPhrasesLoading] = useState(true); 
+  const [phrasesLoading, setPhrasesLoading] = useState(true);
+  const [transcribing, setTranscribing] = useState(false); // New state for transcribing
 
   useEffect(() => {
     const user = auth.currentUser;
@@ -51,6 +52,11 @@ const Home = () => {
   };
 
   const handleMicPress = async () => {
+    if (transcribing) {
+      Alert.alert('Transcription in Progress', 'Please wait for the current transcription to finish.');
+      return;
+    }
+
     if (!isMicActive) {
       const { status } = await Audio.requestPermissionsAsync();
       if (status !== 'granted') {
@@ -67,9 +73,9 @@ const Home = () => {
             audioEncoder: 2,
           },
           ios: {
-            extension: '.m4a',
-            outputFormat: Audio.RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC,
-            audioEncoder: Audio.RECORDING_OPTION_IOS_AUDIO_ENCODER_AAC,
+            extension: '.amr',
+            outputFormat: "sawb",
+            audioQuality : 96,
           },
         };
         const { recording: newRecording } = await Audio.Recording.createAsync(recordingOptions);
@@ -102,43 +108,52 @@ const Home = () => {
 
   const transcribeAudioAndTranslate = async (audioUri) => {
     setLoading(true);
+    setTranscribing(true); // Set transcribing to true to block further actions
+
     try {
-      const transcriptionResult = await transcribeAudio(audioUri, 'en-US');
-      if (!transcriptionResult || transcriptionResult.trim() === '') {
+      const transcriptionResult = await transcribeAudio(audioUri);
+      if (!transcriptionResult || transcriptionResult.trim() === 'No transcription available.') {
         setTranscription('No audio detected for transcription.');
-        return; // No need to continue if the transcription is empty
+        return; 
       }
+  
       setTranscription(transcriptionResult);
-      await saveTranscriptionToFirestore(transcriptionResult, auth.currentUser.uid);
-      await translateText(transcriptionResult); // If you want to translate the text
-      loadTopWordsAndPhrases(auth.currentUser.uid); // Reload the top words and phrases
+      const translatedText = await translateText(transcriptionResult);
+      if (translatedText) {
+        setTranscription(translatedText);
+      } else {
+        setTranscription(transcriptionResult);
+      }
+
+      await saveTranscriptionToFirestore(translatedText, auth.currentUser.uid);
+      loadTopWordsAndPhrases(auth.currentUser.uid);
     } catch (error) {
       console.error('Error during transcription or translation:', error);
       Alert.alert('Error', 'Could not transcribe or translate audio.');
     } finally {
       setLoading(false);
+      setTranscribing(false); // Reset transcribing flag when done
     }
   };
+  
 
   return (
     <SafeAreaView className="bg-prime flex-1">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View className="mt-12 ml-5 mr-5 flex-1">
           <View className="flex-row justify-between items-center px-4">
-            {/* Left Side: Hello, Username */}
             <View className="flex-row items-center">
               <Text className="font-pmedium text-2xl text-white">Hello,</Text>
               <Text className="text-2xl font-psemibold text-secondary opacity-90 ml-2">{username}</Text>
             </View>
 
-            {/* Right Side: Logout Icon */}
             <TouchableOpacity onPress={handleLogout} className="w-[42px] h-[42px] rounded-xl pl-1 justify-center items-center bg-tertiary opacity-80" activeOpacity={0.4}> 
               <MaterialIcons name="logout" size={20} color="red" style={{ }} /> 
             </TouchableOpacity>
           </View>
 
           <View className="flex-col gap-y-5 mt-2 justify-center items-center">
-            <TouchableOpacity onPress={handleMicPress} activeOpacity={0.4} className="w-[130px] h-[130px] justify-center items-center rounded-full p-3" style={{backgroundColor: isMicActive? "#f7a07222": "#14FFEC22"}}>
+            <TouchableOpacity onPress={handleMicPress} disabled={transcribing} activeOpacity={transcribing ? 1 : 0.4} className="w-[130px] h-[130px] justify-center items-center rounded-full p-3" style={{backgroundColor: isMicActive ? "#f7a07222" : "#14FFEC22"}}>
                 <FontAwesome name="microphone" size={60} style={{ color: isMicActive ? '#f7a072' : '#14FFEC' }}/>
             </TouchableOpacity>
 

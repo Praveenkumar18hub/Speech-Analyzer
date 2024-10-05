@@ -73,7 +73,7 @@ const History = () => {
           <FlashList
             data={transcriptionHistory}
             renderItem={renderItem}
-            keyExtractor={(item) => item.timestamp} // Use timestamp as key
+            keyExtractor={(item) => item.timestamp} // Used timestamp as key
             estimatedItemSize={100}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 20 }}

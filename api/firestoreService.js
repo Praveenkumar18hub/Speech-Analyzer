@@ -62,7 +62,7 @@ export const saveTranscriptionToFirestore = async (transcription, userUid) => {
     }
 
     const phrases = {};
-    const phraseLength = 2; // Length of phrases (e.g., 2 for bi-grams)
+    const phraseLength = 4; // Length of phrases (e.g., 2 for bi-grams)
 
     for (let i = 0; i <= words.length - phraseLength; i++) {
       const phrase = words.slice(i, i + phraseLength).join(' ');

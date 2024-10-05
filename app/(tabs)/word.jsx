@@ -84,7 +84,7 @@ const Word = () => {
     return {
       word,
       userCount,
-      globalCount: globalCount < 0 ? 0 : globalCount,  // Ensure global count doesn't go negative
+      globalCount: globalCount < 0 ? 0 : globalCount,  
     };
   });
 
@@ -99,20 +99,20 @@ const Word = () => {
 
           {sortedData.map(({ word, userCount, globalCount }) => (
             <View key={word} className="mb-6 ml-6 mr-3">
-              <Text className="text-lg text-[#eeebe3] font-pmedium">{word}</Text>
+              <Text className="text-xl text-[#eeebe3] text-end font-pmedium ">{word}</Text>
 
-              <Text className="text-lg text-[#eeebe3] font-plight">Current User: {userCount}</Text>
+              <Text className="text-base text-[#eeebe3] font-plight">Current User: {userCount}</Text>
               <ProgressBar
                 progress={userCount / (globalCount + userCount)}
                 color="#6FCF97"
-                style={{ height: 10, borderRadius: 5, marginBottom: 4 }}
+                style={{ height: 10, borderRadius: 10, marginBottom: 5, backgroundColor:'#6FCF9766'}}
               />
 
-              <Text className="text-lg text-[#eeebe3] font-plight">Other Users: {globalCount}</Text>
+              <Text className="text-base text-[#eeebe3] font-plight">Other Users: {globalCount}</Text>
               <ProgressBar
                 progress={globalCount / (globalCount + userCount)}
                 color="#56CCF2"
-                style={{ height: 10, borderRadius: 5 }}
+                style={{ height: 10, borderRadius: 10, backgroundColor:'#56CCF266' }}
               />
             </View>
           ))}
