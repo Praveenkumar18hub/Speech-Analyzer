@@ -23,33 +23,34 @@ Steps to run this app in your local development environment:
 ### Prerequisites
 1. Install Node.js and npm.
 2. Install Expo CLI:
+
    ```bash
    npm install -g expo-cli
    ```
 3. Set up a Google Cloud Project and enable the Speech-to-Text API and Translation API.
-4. Set up a Firebase project and enable Firestore, Firebase Storage, and Authentication.
+4. Set up a Firebase project and enable Firestore and Authentication.
 5. Install Firebase CLI:
+
    ```bash
    npm install -g firebase-tools
    ```
 
 ### Clone the Repository
-Run the following commands to clone the repository:
 ```bash
 git clone [GitHub Repository URL]
 cd speech-analyzer-app
 ```
 
 ### Install Dependencies
-Run the following command to install all the necessary dependencies:
 ```bash
 npm install
 ```
 
 ### Run the App
-You can run the app locally using Expo:
 ```bash
-expo start
+npm start  (or)
+npx expo start  
+
 ```
 Scan the QR code displayed in your terminal with the Expo Go app or Enter the URL that is provided in the terminal in Expo Go App
 
@@ -59,6 +60,6 @@ Scan the QR code displayed in your terminal with the Expo Go app or Enter the UR
 3. Navigate to **Credentials** and generate an API key.
 4. Add the generated Google Cloud API key to the `.env` file in your project.
 
-## Future Improvements
+## Later Updates
 - **Similarity Detector**: Compare user transcriptions and provide suggestions for similar speech patterns among users.
 - **Real-Time Updates**: Enhance real-time updates to the transcription history and word frequency analysis.
