@@ -63,3 +63,6 @@ Scan the QR code displayed in your terminal with the Expo Go app or Enter the UR
 ## Later Updates
 - **Similarity Detector**: Compare user transcriptions and provide suggestions for similar speech patterns among users.
 - **Real-Time Transcription**: Implement real-time transcription capabilities that allow users to see their speech transcribed live while streaming audio.
+
+## Contact
+For any Queries/ Feedback, Kindly Contact me at - **praveen181201@gmail.com**
